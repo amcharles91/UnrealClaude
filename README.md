@@ -250,6 +250,14 @@ The MCP bridge includes a dynamic context loader that provides accurate UE 5.7 A
 
 ## Configuration
 
+### Project Settings
+
+In **Project Settings → Plugins → Unreal Claude**:
+
+- **Auto-approve script execution** (default: OFF) — when ON, every Python / C++ / Console / Editor Utility script triggered through the MCP bridge or the in-editor chat runs immediately without showing the permission dialog. Each auto-approved script writes a `LogUnrealClaude` Log entry with its type and description so the audit trail is preserved. Designed for trusted MCP-driven / agent-driven workflows where the per-script confirmation becomes dominant friction; **only enable on machines and projects where the connected client is trusted**.
+
+The setting is persisted to `Config/DefaultEditor.ini` under `[/Script/UnrealClaude.UnrealClaudeSettings]`.
+
 ### Custom System Prompts
 
 You can extend the built-in UE5.7 context by creating a `CLAUDE.md` file in your project root:

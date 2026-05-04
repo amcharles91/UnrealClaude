@@ -3,6 +3,7 @@
 #include "ScriptExecutionManager.h"
 #include "ScriptPermissionDialog.h"
 #include "UnrealClaudeModule.h"
+#include "UnrealClaudeSettings.h"
 #include "UnrealClaudeUtils.h"
 #include "JsonUtils.h"
 #include "MCP/MCPParamValidator.h"
@@ -92,6 +93,20 @@ bool FScriptExecutionManager::ShowPermissionDialog(
 	EScriptType Type,
 	const FString& Description)
 {
+	// Honour the project-level auto-approve setting, intended for trusted MCP/agent-driven workflows
+	// where the per-script confirmation is the dominant friction. Default OFF preserves the safe
+	// "human in the loop" behaviour. We log every auto-approval so the audit trail survives.
+	if (const UUnrealClaudeSettings* Settings = GetDefault<UUnrealClaudeSettings>())
+	{
+		if (Settings->bAutoApproveScripts)
+		{
+			UE_LOG(LogUnrealClaude, Log,
+				TEXT("Script auto-approved (bAutoApproveScripts=true). Type=%s Description=%s"),
+				*ScriptTypeToString(Type), *Description);
+			return true;
+		}
+	}
+
 	// Delegate to the extracted permission dialog class
 	return FScriptPermissionDialog::Show(ScriptPreview, Type, Description);
 }
