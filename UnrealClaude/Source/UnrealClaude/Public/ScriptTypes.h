@@ -64,7 +64,6 @@ inline FString GetScriptExtension(EScriptType Type)
  */
 namespace ScriptHeader
 {
-	// C++ header format
 	inline FString FormatCppHeader(const FString& Description, const FString& ScriptName)
 	{
 		return FString::Printf(TEXT(
@@ -77,7 +76,6 @@ namespace ScriptHeader
 		), *ScriptName, *Description, *FDateTime::UtcNow().ToString(TEXT("%Y-%m-%dT%H:%M:%SZ")));
 	}
 
-	// Python header format
 	inline FString FormatPythonHeader(const FString& Description, const FString& ScriptName)
 	{
 		return FString::Printf(TEXT(
@@ -90,7 +88,6 @@ namespace ScriptHeader
 		), *ScriptName, *Description, *FDateTime::UtcNow().ToString(TEXT("%Y-%m-%dT%H:%M:%SZ")));
 	}
 
-	// Console commands header (as comment)
 	inline FString FormatConsoleHeader(const FString& Description, const FString& ScriptName)
 	{
 		return FString::Printf(TEXT(
@@ -107,21 +104,18 @@ namespace ScriptHeader
 	 */
 	inline FString ParseDescription(const FString& ScriptContent)
 	{
-		// Look for @Description: pattern
 		int32 DescStart = ScriptContent.Find(TEXT("@Description:"));
 		if (DescStart == INDEX_NONE)
 		{
 			return TEXT("No description provided");
 		}
 
-		// Find end of line
 		int32 LineEnd = ScriptContent.Find(TEXT("\n"), ESearchCase::IgnoreCase, ESearchDir::FromStart, DescStart);
 		if (LineEnd == INDEX_NONE)
 		{
 			LineEnd = ScriptContent.Len();
 		}
 
-		// Extract description text
 		FString Description = ScriptContent.Mid(DescStart + 13, LineEnd - DescStart - 13);
 		Description.TrimStartAndEndInline();
 

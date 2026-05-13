@@ -15,7 +15,6 @@
 #include "UObject/UObjectGlobals.h"
 
 // ===== Asset Loading =====
-// All methods delegate to LoadAnimAssetInternal<T> template to eliminate duplication
 
 UAnimSequence* FAnimAssetManager::LoadAnimSequence(const FString& AssetPath, FString& OutError)
 {
@@ -76,7 +75,6 @@ bool FAnimAssetManager::ValidateAnimationCompatibility(
 		return false;
 	}
 
-	// Check skeleton compatibility
 	if (!BPSkeleton->IsCompatibleForEditor(AssetSkeleton))
 	{
 		OutError = FString::Printf(
@@ -105,26 +103,22 @@ bool FAnimAssetManager::SetStateAnimSequence(
 	UAnimSequence* AnimSequence,
 	FString& OutError)
 {
-	// Validate compatibility
 	if (!ValidateAnimationCompatibility(AnimBP, AnimSequence, OutError))
 	{
 		return false;
 	}
 
-	// Find state's bound graph
 	UEdGraph* StateGraph = FAnimGraphEditor::FindStateBoundGraph(AnimBP, StateMachineName, StateName, OutError);
 	if (!StateGraph)
 	{
 		return false;
 	}
 
-	// Clear existing content
 	if (!FAnimGraphEditor::ClearStateGraph(StateGraph, OutError))
 	{
 		return false;
 	}
 
-	// Create sequence player node
 	FString NodeId;
 	UEdGraphNode* SeqNode = FAnimGraphEditor::CreateAnimSequenceNode(
 		StateGraph,
@@ -139,7 +133,6 @@ bool FAnimAssetManager::SetStateAnimSequence(
 		return false;
 	}
 
-	// Connect to output pose
 	return FAnimGraphEditor::ConnectToOutputPose(StateGraph, NodeId, OutError);
 }
 
@@ -151,26 +144,22 @@ bool FAnimAssetManager::SetStateBlendSpace(
 	const TMap<FString, FString>& ParameterBindings,
 	FString& OutError)
 {
-	// Validate compatibility
 	if (!ValidateAnimationCompatibility(AnimBP, BlendSpace, OutError))
 	{
 		return false;
 	}
 
-	// Find state's bound graph
 	UEdGraph* StateGraph = FAnimGraphEditor::FindStateBoundGraph(AnimBP, StateMachineName, StateName, OutError);
 	if (!StateGraph)
 	{
 		return false;
 	}
 
-	// Clear existing content
 	if (!FAnimGraphEditor::ClearStateGraph(StateGraph, OutError))
 	{
 		return false;
 	}
 
-	// Create BlendSpace player node
 	FString NodeId;
 	UEdGraphNode* BSNode = FAnimGraphEditor::CreateBlendSpaceNode(
 		StateGraph,
@@ -189,7 +178,6 @@ bool FAnimAssetManager::SetStateBlendSpace(
 	// This requires creating variable get nodes and connecting them to the BlendSpace input pins
 	// For now, we'll just create the BlendSpace node and connect to output
 
-	// Connect to output pose
 	return FAnimGraphEditor::ConnectToOutputPose(StateGraph, NodeId, OutError);
 }
 
@@ -201,26 +189,22 @@ bool FAnimAssetManager::SetStateBlendSpace1D(
 	const FString& ParameterBinding,
 	FString& OutError)
 {
-	// Validate compatibility
 	if (!ValidateAnimationCompatibility(AnimBP, BlendSpace, OutError))
 	{
 		return false;
 	}
 
-	// Find state's bound graph
 	UEdGraph* StateGraph = FAnimGraphEditor::FindStateBoundGraph(AnimBP, StateMachineName, StateName, OutError);
 	if (!StateGraph)
 	{
 		return false;
 	}
 
-	// Clear existing content
 	if (!FAnimGraphEditor::ClearStateGraph(StateGraph, OutError))
 	{
 		return false;
 	}
 
-	// Create BlendSpace1D player node
 	FString NodeId;
 	UEdGraphNode* BSNode = FAnimGraphEditor::CreateBlendSpace1DNode(
 		StateGraph,
@@ -235,7 +219,6 @@ bool FAnimAssetManager::SetStateBlendSpace1D(
 		return false;
 	}
 
-	// Connect to output pose
 	return FAnimGraphEditor::ConnectToOutputPose(StateGraph, NodeId, OutError);
 }
 
@@ -246,13 +229,11 @@ bool FAnimAssetManager::SetStateMontage(
 	UAnimMontage* Montage,
 	FString& OutError)
 {
-	// Validate compatibility
 	if (!ValidateAnimationCompatibility(AnimBP, Montage, OutError))
 	{
 		return false;
 	}
 
-	// Find state's bound graph
 	UEdGraph* StateGraph = FAnimGraphEditor::FindStateBoundGraph(AnimBP, StateMachineName, StateName, OutError);
 	if (!StateGraph)
 	{
@@ -279,7 +260,6 @@ TArray<FString> FAnimAssetManager::FindAnimationAssets(
 	FAssetRegistryModule& AssetRegistryModule = FModuleManager::LoadModuleChecked<FAssetRegistryModule>("AssetRegistry");
 	IAssetRegistry& AssetRegistry = AssetRegistryModule.Get();
 
-	// Determine class filter
 	TArray<FTopLevelAssetPath> ClassPaths;
 	if (AssetType.Equals(TEXT("AnimSequence"), ESearchCase::IgnoreCase))
 	{
@@ -305,7 +285,6 @@ TArray<FString> FAnimAssetManager::FindAnimationAssets(
 		ClassPaths.Add(UAnimMontage::StaticClass()->GetClassPathName());
 	}
 
-	// Query assets
 	FARFilter Filter;
 	Filter.ClassPaths = ClassPaths;
 	Filter.bRecursiveClasses = true;
@@ -315,18 +294,15 @@ TArray<FString> FAnimAssetManager::FindAnimationAssets(
 	TArray<FAssetData> AssetDataList;
 	AssetRegistry.GetAssets(Filter, AssetDataList);
 
-	// Filter by pattern and skeleton
 	for (const FAssetData& AssetData : AssetDataList)
 	{
 		FString AssetName = AssetData.AssetName.ToString();
 
-		// Check pattern match
 		if (!SearchPattern.IsEmpty() && !AssetName.Contains(SearchPattern))
 		{
 			continue;
 		}
 
-		// Check skeleton compatibility
 		if (TargetSkeleton)
 		{
 			UAnimationAsset* Asset = Cast<UAnimationAsset>(AssetData.GetAsset());
@@ -359,7 +335,6 @@ TSharedPtr<FJsonObject> FAnimAssetManager::SerializeAnimAssetInfo(UAnimationAsse
 		Json->SetStringField(TEXT("skeleton"), Skeleton->GetName());
 	}
 
-	// Add type-specific info
 	if (UAnimSequence* Sequence = Cast<UAnimSequence>(Asset))
 	{
 		Json->SetNumberField(TEXT("length"), Sequence->GetPlayLength());
@@ -383,14 +358,12 @@ TSharedPtr<FJsonObject> FAnimAssetManager::SerializeBlendSpaceInfo(UBlendSpace* 
 	Json->SetStringField(TEXT("path"), BlendSpace->GetPathName());
 	Json->SetStringField(TEXT("class"), BlendSpace->GetClass()->GetName());
 
-	// Add axis info
 	TSharedPtr<FJsonObject> AxisXJson = MakeShared<FJsonObject>();
 	AxisXJson->SetStringField(TEXT("name"), BlendSpace->GetBlendParameter(0).DisplayName);
 	AxisXJson->SetNumberField(TEXT("min"), BlendSpace->GetBlendParameter(0).Min);
 	AxisXJson->SetNumberField(TEXT("max"), BlendSpace->GetBlendParameter(0).Max);
 	Json->SetObjectField(TEXT("axis_x"), AxisXJson);
 
-	// Check if 2D
 	if (!BlendSpace->IsA<UBlendSpace1D>())
 	{
 		TSharedPtr<FJsonObject> AxisYJson = MakeShared<FJsonObject>();
@@ -407,13 +380,11 @@ TSharedPtr<FJsonObject> FAnimAssetManager::SerializeBlendSpaceInfo(UBlendSpace* 
 
 FString FAnimAssetManager::ResolveAnimAssetPath(const FString& AssetPath)
 {
-	// If already a full path, return as-is
 	if (AssetPath.StartsWith(TEXT("/Game/")) || AssetPath.StartsWith(TEXT("/Script/")))
 	{
 		return AssetPath;
 	}
 
-	// Try to construct full path
 	FString FullPath = TEXT("/Game/Animations/") + AssetPath;
 
 	// Ensure proper asset reference format (Path.AssetName)
