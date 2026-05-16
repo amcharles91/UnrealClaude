@@ -9,12 +9,20 @@
 
 **Claude Code CLI integration for Unreal Engine 5.7** - Get AI coding assistance with built-in UE5.7 documentation context directly in the editor.
 
+**Claude Code Plan changes PLEASE READ BEFORE JUNE 15TH TOO KEEP USING** 
+[Changes annouced by Anthropic](https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan) might lead to extra usage billage when using the **custom in-editor chat box** . 
+Because the plugin launches a MCP server on editor boot, **you can keep using UnrealClaude in claude code with the '/mcp' command.** 
+
 > **Supported Platforms:** Windows (Win64), Linux, and macOS (Apple Silicon). Claude Opus 4.7 and its Claude Code release supported.
 ## Overview
 
-UnrealClaude integrates the [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) directly into the Unreal Engine 5.7 Editor. Instead of using the API directly, this plugin shells out to the `claude` command-line tool, leveraging your existing Claude Code authentication and capabilities.
+UnrealClaude integrates the [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) directly into the Unreal Engine 5.7 Editor and runs a MCP server for access to other coding agents.
 
-<img width="1131" height="1055" alt="{051D8F19-2677-4682-9DDF-A461041C1039}" src="https://github.com/user-attachments/assets/3803aed6-cb2d-4d2a-bac3-dbb1ec3fbf1d" />
+<p align="center">
+  <img width="45%" height="400" alt="Screenshot in editor chat" src="https://github.com/user-attachments/assets/5eff6f0d-8900-485c-b692-141bfb45d397" />
+  <img width="45%" height="500" alt="Screenshot claude code" src="https://github.com/user-attachments/assets/abcd41ce-7caf-4e7b-87b8-39a406d29cd5" />
+</p>
+
 
 **Key Features:**
 - **Native Editor Integration** - Chat panel docked in your editor with live streaming responses, tool call grouping, and code block rendering
@@ -134,6 +142,23 @@ npm install
 ### Step 4: Launch
 
 Launch the editor - the plugin will load automatically.
+
+
+### Step 5: (Optional but recommend): Connect Claude Code CLI to use Unreal without the chat box 
+
+1. **Launch Claude Code or Claude CLI** and point it to your UnrealClaude install. 
+
+<img width="1097" height="154" alt="image" src="https://github.com/user-attachments/assets/05a88a96-abce-4ebb-93ef-1ea405e5f28a" />
+
+
+2. After the all clear, **restart just Claude Code / CLI for changes to save.** 
+
+<p align="center">
+  <img height="200" alt="Screenshot 1" src="https://github.com/user-attachments/assets/251f1580-aec2-415c-abab-6a2e50662a8e" />
+  <img height="200" alt="Screenshot 2" src="https://github.com/user-attachments/assets/ffda3096-d808-41e7-85ba-176dfe6385d8" />
+</p>
+
+
 
 ## macOS Quick Start (Apple Silicon)
 
