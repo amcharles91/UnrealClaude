@@ -29,6 +29,7 @@
 #include "Tools/MCPTool_Material.h"
 #include "Tools/MCPTool_Asset.h"
 #include "Tools/MCPTool_OpenLevel.h"
+#include "Tools/MCPTool_GameplayTags.h"
 
 #include "Tools/MCPTool_TaskSubmit.h"
 #include "Tools/MCPTool_TaskStatus.h"
@@ -98,6 +99,8 @@ void FMCPToolRegistry::RegisterBuiltinTools()
 	RegisterTool(MakeShared<FMCPTool_Asset>());
 
 	RegisterTool(MakeShared<FMCPTool_OpenLevel>());
+
+	RegisterTool(MakeShared<FMCPTool_GameplayTags>());
 
 	// Task queue takes a raw pointer since the registry always outlives it
 	TaskQueue = MakeShared<FMCPTaskQueue>(this);

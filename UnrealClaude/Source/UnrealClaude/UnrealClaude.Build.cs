@@ -61,7 +61,10 @@ public class UnrealClaude : ModuleRules
 				// Asset saving
 				"EditorScriptingUtilities",
 				// Enhanced Input
-				"EnhancedInput"
+				"EnhancedInput",
+				// Gameplay Tags (query via manager + editor add/remove/rename)
+				"GameplayTags",
+				"GameplayTagsEditor"
 			}
 		);
 

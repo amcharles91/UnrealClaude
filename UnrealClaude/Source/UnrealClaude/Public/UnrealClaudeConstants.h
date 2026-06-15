@@ -193,6 +193,8 @@ namespace UnrealClaudeConstants
 			TEXT("material"),
 			// Level management tools
 			TEXT("open_level"),
+			// Gameplay tags
+			TEXT("gameplay_tags"),
 			// Task queue tools
 			TEXT("task_submit"),
 			TEXT("task_status"),
