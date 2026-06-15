@@ -244,7 +244,7 @@ void FUnrealClaudeModule::StopMCPServer()
 {
 	if (MCPServer.IsValid())
 	{
-		MCPServer->Stop();
+		MCPServer->StopServer();
 		MCPServer.Reset();
 	}
 }

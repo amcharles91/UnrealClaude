@@ -143,8 +143,10 @@ namespace UnrealClaudeConstants
 
 	namespace MCPServer
 	{
-		/** Default port for MCP HTTP server */
-		constexpr uint32 DefaultPort = 3000;
+		/** Default port for MCP HTTP server.
+		 *  Chosen in the quiet registered range to avoid the heavily-used
+		 *  3000/5000/8000/8080 dev ports (and VibeUE's 8088/8089). */
+		constexpr uint32 DefaultPort = 8732;
 
 		/** Timeout for game thread execution in milliseconds */
 		constexpr uint32 GameThreadTimeoutMs = 30000;
