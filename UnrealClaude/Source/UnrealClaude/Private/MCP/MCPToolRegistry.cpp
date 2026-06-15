@@ -34,6 +34,22 @@
 #include "Tools/MCPTool_EditorTransaction.h"
 #include "Tools/MCPTool_DataTable.h"
 #include "Tools/MCPTool_DataAsset.h"
+#include "Tools/MCPTool_UMGWidgets.h"
+#include "Tools/MCPTool_Niagara.h"
+#include "Tools/MCPTool_StateTree.h"
+#include "Tools/MCPTool_AnimSequence.h"
+#include "Tools/MCPTool_AnimMontage.h"
+#include "Tools/MCPTool_Skeleton.h"
+#include "Tools/MCPTool_SoundCue.h"
+#include "Tools/MCPTool_MetaSound.h"
+#include "Tools/MCPTool_Landscape.h"
+#include "Tools/MCPTool_LandscapeMaterial.h"
+#include "Tools/MCPTool_Foliage.h"
+#include "Tools/MCPTool_UVMapping.h"
+#include "Tools/MCPTool_EngineSettings.h"
+#include "Tools/MCPTool_ProjectSettings.h"
+#include "Tools/MCPTool_Viewport.h"
+#include "Tools/MCPTool_MapBlockout.h"
 
 #include "Tools/MCPTool_TaskSubmit.h"
 #include "Tools/MCPTool_TaskStatus.h"
@@ -110,6 +126,24 @@ void FMCPToolRegistry::RegisterBuiltinTools()
 	RegisterTool(MakeShared<FMCPTool_EditorTransaction>());
 	RegisterTool(MakeShared<FMCPTool_DataTable>());
 	RegisterTool(MakeShared<FMCPTool_DataAsset>());
+
+	// Ported VibeUE tools (scaffolded stubs, fleshed out incrementally)
+	RegisterTool(MakeShared<FMCPTool_UMGWidgets>());
+	RegisterTool(MakeShared<FMCPTool_Niagara>());
+	RegisterTool(MakeShared<FMCPTool_StateTree>());
+	RegisterTool(MakeShared<FMCPTool_AnimSequence>());
+	RegisterTool(MakeShared<FMCPTool_AnimMontage>());
+	RegisterTool(MakeShared<FMCPTool_Skeleton>());
+	RegisterTool(MakeShared<FMCPTool_SoundCue>());
+	RegisterTool(MakeShared<FMCPTool_MetaSound>());
+	RegisterTool(MakeShared<FMCPTool_Landscape>());
+	RegisterTool(MakeShared<FMCPTool_LandscapeMaterial>());
+	RegisterTool(MakeShared<FMCPTool_Foliage>());
+	RegisterTool(MakeShared<FMCPTool_UVMapping>());
+	RegisterTool(MakeShared<FMCPTool_EngineSettings>());
+	RegisterTool(MakeShared<FMCPTool_ProjectSettings>());
+	RegisterTool(MakeShared<FMCPTool_Viewport>());
+	RegisterTool(MakeShared<FMCPTool_MapBlockout>());
 
 	// Task queue takes a raw pointer since the registry always outlives it
 	TaskQueue = MakeShared<FMCPTaskQueue>(this);

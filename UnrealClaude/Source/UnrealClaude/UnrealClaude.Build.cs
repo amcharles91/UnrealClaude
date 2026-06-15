@@ -64,7 +64,27 @@ public class UnrealClaude : ModuleRules
 				"EnhancedInput",
 				// Gameplay Tags (query via manager + editor add/remove/rename)
 				"GameplayTags",
-				"GameplayTagsEditor"
+				"GameplayTagsEditor",
+				// Ported-tool dependencies (pre-declared so flesh-out needs no Build.cs changes).
+				// UMG / MVVM
+				"UMG", "UMGEditor", "MovieScene", "MovieSceneTracks", "PropertyEditor",
+				"ModelViewViewModel", "ModelViewViewModelBlueprint", "BlueprintEditorLibrary",
+				// Niagara
+				"Niagara", "NiagaraEditor", "NiagaraCore",
+				// StateTree
+				"StateTreeModule", "StateTreeEditorModule", "GameplayStateTreeModule",
+				// Animation
+				"AnimationCore", "AnimationDataController", "AnimationBlueprintLibrary",
+				// Audio
+				"AudioEditor", "MetasoundEngine", "MetasoundFrontend", "MetasoundEditor",
+				// Landscape / materials
+				"Landscape", "LandscapeEditor", "LandscapeEditorUtilities", "MaterialEditor",
+				// Foliage
+				"Foliage", "FoliageEdit",
+				// Mesh / UV
+				"MeshDescription", "StaticMeshDescription", "MeshConversionEngineTypes",
+				// Settings / viewport / rendering
+				"RenderCore", "RHI", "EngineSettings", "LevelEditor"
 			}
 		);
 
