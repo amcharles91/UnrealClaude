@@ -71,8 +71,8 @@ public class UnrealClaude : ModuleRules
 				"ModelViewViewModel", "ModelViewViewModelBlueprint", "BlueprintEditorLibrary",
 				// Niagara
 				"Niagara", "NiagaraEditor", "NiagaraCore",
-				// StateTree
-				"StateTreeModule", "StateTreeEditorModule", "GameplayStateTreeModule",
+				// StateTree (+ PropertyBindingUtils: StateTree bindable-struct descriptors derive from it)
+				"StateTreeModule", "StateTreeEditorModule", "GameplayStateTreeModule", "PropertyBindingUtils",
 				// Animation
 				"AnimationCore", "AnimationDataController", "AnimationBlueprintLibrary",
 				// Audio

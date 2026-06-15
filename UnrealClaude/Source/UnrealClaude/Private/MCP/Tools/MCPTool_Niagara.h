@@ -14,11 +14,11 @@
  * UNiagaraSystem assets via the Niagara editor (FNiagaraSystemViewModel /
  * UNiagaraSystemFactory) and persists changes to the asset.
  *
- * STUB: schema and operation dispatch are complete, but every operation
- * currently returns "not implemented yet". The real implementation requires
- * the Niagara / NiagaraEditor module dependencies (see Build.cs) which are not
- * yet wired up, so this file is intentionally include-light and compiles
- * against the existing module set.
+ * All operations are implemented and working: list, create_system, get_info,
+ * add_emitter, remove_emitter, set_system_param, set_emitter_param, add_module,
+ * and add_renderer. The tool depends on the Niagara and NiagaraEditor modules
+ * (see Build.cs) and is editor-only for the authoring operations (guarded by
+ * WITH_EDITOR); list/get_info also work at runtime.
  *
  * Ported from VibeUE's UNiagaraService / UNiagaraEmitterService /
  * UNiagaraScratchPadService into the native MCP tool pattern.

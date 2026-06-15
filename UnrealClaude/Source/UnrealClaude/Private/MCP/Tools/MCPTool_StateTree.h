@@ -13,10 +13,11 @@
  * paths use "/" separators starting from the subtree root name (e.g. "Root",
  * "Root/Walking", "Root/Walking/Idle").
  *
- * NOTE: This is a STUB. The schema (operations + parameters) is final, but every
- * OpXxx() body currently returns "not implemented yet". The real implementation
- * will drive UStateTreeEditorData / UStateTree via the StateTree editor modules
- * (see the .cpp header comment for the Build.cs module + engine-plugin deps).
+ * Each OpXxx() drives UStateTreeEditorData / UStateTree through the StateTree
+ * editor modules (see the .cpp header comment for the Build.cs module +
+ * engine-plugin deps). Mutating ops snapshot the asset for undo before changing
+ * it and mark the package dirty afterward; structural changes are not visible at
+ * runtime until 'compile'.
  *
  * Editor-only: StateTree authoring requires WITH_EDITOR and the StateTreeEditorModule.
  */
@@ -39,7 +40,7 @@ private:
 	/** Remove a state and its children by path (asset_path, state_path). */
 	FMCPToolResult OpRemoveState(const TSharedRef<FJsonObject>& Params);
 
-	/** Mark a state as the entry/selection target of its parent (asset_path, state_path, optional selection_behavior). */
+	/** Set how a state selects among its children (SelectionBehavior) (asset_path, state_path, optional selection_behavior). */
 	FMCPToolResult OpSetEntry(const TSharedRef<FJsonObject>& Params);
 
 	/** Add a task to a state (asset_path, state_path, task_struct). */

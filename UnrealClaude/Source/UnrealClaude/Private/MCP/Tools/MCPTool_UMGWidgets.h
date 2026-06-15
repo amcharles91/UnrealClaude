@@ -14,10 +14,13 @@
  *
  * Ported from VibeUE's UWidgetService into the native MCP tool pattern.
  *
- * NOTE: This is currently a STUB. The operation dispatch + schema are real, but
- * every OpXxx() body returns "not implemented yet". Full logic will be added
- * later via Live Coding once the UMG / UMGEditor / ModelViewViewModel module
- * dependencies are wired into Build.cs.
+ * Working tool: list/create/get_info/add_component/remove_component/set_property/
+ * add_animation/validate are implemented against the editor UMG APIs (UMG /
+ * UMGEditor deps are wired into Build.cs). A few advanced ops are intentionally
+ * deferred and return an explanatory error rather than guessing a version-sensitive
+ * API: bind_event (Blueprint event-graph node creation), set_mvvm_binding
+ * (MVVMBlueprintView construction), and add_animation track authoring.
+ * All editor-mutating ops are gated behind WITH_EDITOR.
  */
 class FMCPTool_UMGWidgets : public FMCPToolBase
 {
@@ -50,16 +53,16 @@ private:
 
 	/**
 	 * Load and validate a Widget Blueprint asset at the given /Game path.
-	 * Returns nullptr on failure (logs via LogUnrealClaude). Stubbed for now.
+	 * Returns nullptr on failure (logs via LogUnrealClaude).
 	 */
 	class UWidgetBlueprint* LoadWidgetBlueprint(const FString& WidgetPath) const;
 
-	/** Find a widget component by name within a loaded Widget Blueprint. Stubbed for now. */
+	/** Find a widget component by name within a loaded Widget Blueprint. */
 	class UWidget* FindWidgetByName(class UWidgetBlueprint* WidgetBP, const FString& ComponentName) const;
 
-	/** Resolve a widget class from a type name (native type or custom WBP asset name). Stubbed for now. */
+	/** Resolve a widget class from a type name (native type or custom WBP asset name). */
 	UClass* FindWidgetClass(const FString& TypeName) const;
 
-	/** Resolve a ViewModel class by name (C++ or Blueprint ViewModel). Stubbed for now. */
+	/** Resolve a ViewModel class by name (C++ or Blueprint ViewModel). */
 	UClass* FindViewModelClass(const FString& ClassName) const;
 };
