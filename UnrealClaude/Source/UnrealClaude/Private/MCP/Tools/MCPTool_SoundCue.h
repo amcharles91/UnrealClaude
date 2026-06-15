@@ -12,8 +12,6 @@
  * properties via reflection, and import SoundWaves from disk.
  *
  * Ported from VibeUE's USoundCueService into the native MCP tool pattern.
- *
- * NOTE: This is a STUB. All operations currently return "not implemented yet".
  */
 class FMCPTool_SoundCue : public FMCPToolBase
 {

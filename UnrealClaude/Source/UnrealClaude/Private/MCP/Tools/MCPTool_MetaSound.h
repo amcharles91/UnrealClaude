@@ -13,8 +13,6 @@
  * outputs via the MetaSound Builder API.
  *
  * Ported from VibeUE's UMetaSoundService into the native MCP tool pattern.
- *
- * NOTE: This is a STUB. All operations currently return "not implemented yet".
  */
 class FMCPTool_MetaSound : public FMCPToolBase
 {
