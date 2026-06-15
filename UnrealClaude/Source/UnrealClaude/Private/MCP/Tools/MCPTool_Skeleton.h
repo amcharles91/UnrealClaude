@@ -8,12 +8,8 @@
 /**
  * MCP Tool: Manage Unreal Engine Skeletons.
  *
- * Query skeleton bone hierarchies, sockets, curve metadata, retargeting modes,
- * and blend profiles against USkeleton / USkeletalMesh assets.
- *
- * STUB: scaffolded from VibeUE's USkeletonService. Operation dispatch and
- * schema are in place; the OpXxx() bodies return "not implemented yet" until
- * the underlying implementation is ported.
+ * Query and edit skeleton bone hierarchies, sockets, curve metadata, retargeting
+ * modes, and blend profiles against USkeleton / USkeletalMesh assets.
  */
 class FMCPTool_Skeleton : public FMCPToolBase
 {

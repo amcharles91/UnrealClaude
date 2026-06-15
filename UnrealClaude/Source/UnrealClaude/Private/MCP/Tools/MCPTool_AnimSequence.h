@@ -9,11 +9,7 @@
  * MCP Tool: Manage Unreal Engine Animation Sequences.
  *
  * Query (list / get_info) and editor mutations (curves, keys, notifies, frame
- * rate) against UAnimSequence assets via the editor data-model APIs.
- *
- * STUB: scaffolded from VibeUE's UAnimSequenceService. Operation dispatch and
- * schema are in place; the OpXxx() bodies return "not implemented yet" until
- * the underlying implementation is ported.
+ * rate) against UAnimSequence assets via the IAnimationDataController data-model APIs.
  */
 class FMCPTool_AnimSequence : public FMCPToolBase
 {

@@ -10,10 +10,6 @@
  *
  * Create montages and edit their sections, slot tracks, notifies, branch
  * points, and blend settings against UAnimMontage assets.
- *
- * STUB: scaffolded from VibeUE's UAnimMontageService. Operation dispatch and
- * schema are in place; the OpXxx() bodies return "not implemented yet" until
- * the underlying implementation is ported.
  */
 class FMCPTool_AnimMontage : public FMCPToolBase
 {
