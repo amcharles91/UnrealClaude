@@ -30,6 +30,10 @@
 #include "Tools/MCPTool_Asset.h"
 #include "Tools/MCPTool_OpenLevel.h"
 #include "Tools/MCPTool_GameplayTags.h"
+#include "Tools/MCPTool_EnumStruct.h"
+#include "Tools/MCPTool_EditorTransaction.h"
+#include "Tools/MCPTool_DataTable.h"
+#include "Tools/MCPTool_DataAsset.h"
 
 #include "Tools/MCPTool_TaskSubmit.h"
 #include "Tools/MCPTool_TaskStatus.h"
@@ -101,6 +105,11 @@ void FMCPToolRegistry::RegisterBuiltinTools()
 	RegisterTool(MakeShared<FMCPTool_OpenLevel>());
 
 	RegisterTool(MakeShared<FMCPTool_GameplayTags>());
+
+	RegisterTool(MakeShared<FMCPTool_EnumStruct>());
+	RegisterTool(MakeShared<FMCPTool_EditorTransaction>());
+	RegisterTool(MakeShared<FMCPTool_DataTable>());
+	RegisterTool(MakeShared<FMCPTool_DataAsset>());
 
 	// Task queue takes a raw pointer since the registry always outlives it
 	TaskQueue = MakeShared<FMCPTaskQueue>(this);

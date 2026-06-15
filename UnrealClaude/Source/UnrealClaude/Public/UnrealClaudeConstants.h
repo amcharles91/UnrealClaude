@@ -195,6 +195,11 @@ namespace UnrealClaudeConstants
 			TEXT("open_level"),
 			// Gameplay tags
 			TEXT("gameplay_tags"),
+			// Data + structure tools
+			TEXT("enum_struct"),
+			TEXT("editor_transaction"),
+			TEXT("data_table"),
+			TEXT("data_asset"),
 			// Task queue tools
 			TEXT("task_submit"),
 			TEXT("task_status"),
