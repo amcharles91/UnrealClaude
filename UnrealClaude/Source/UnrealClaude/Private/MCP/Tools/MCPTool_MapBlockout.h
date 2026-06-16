@@ -4,20 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "MCP/MCPToolBase.h"
+#include "MapBlockout/MapBlockoutTypes.h"
 
 /**
  * MCP Tool: Procedural FPS-map blockout generator.
  *
- * Reads weight layers from a VibeUE-generated landscape and produces a gated,
- * AAA-style map blockout through a staged pipeline (roads -> POIs -> fields ->
- * foliage -> railway/bridges -> final pass), then optionally materializes the
- * plan into real engine geometry (landscape splines, paint layers, spawned
- * actors, foliage instances).
+ * Reads weight layers from a landscape and produces a gated, AAA-style map
+ * blockout through a staged pipeline (roads -> POIs -> fields -> foliage ->
+ * railway/bridges -> final pass), then optionally materializes the plan into
+ * real engine geometry (landscape splines, paint layers, spawned actors,
+ * foliage instances).
  *
  * Ported from VibeUE's UMapBlockoutService into the native MCP tool pattern.
- *
- * STUB: schema + op-dispatch are complete; Execute bodies are not implemented
- * yet (each OpXxx returns "<op>: not implemented yet").
  */
 class FMCPTool_MapBlockout : public FMCPToolBase
 {
@@ -37,4 +35,11 @@ private:
 
 	/** Turn the plan into actual engine geometry (splines, paint, actors, foliage). */
 	FMCPToolResult OpMaterialize(const TSharedRef<FJsonObject>& Params);
+
+	/**
+	 * Accumulated plan, persisted across MCP calls within the editor session.
+	 * generate populates it; run_stage advances it; get_plan reads it;
+	 * materialize consumes it. Null until generate/run_stage(0) has run.
+	 */
+	TSharedPtr<FMapBlockoutState> CurrentState;
 };
