@@ -14,10 +14,6 @@
  *
  * Ported from VibeUE's ULandscapeMaterialService into the native MCP tool
  * pattern.
- *
- * NOTE: STUB. Schemas and op dispatch are final; Execute bodies return
- * "not implemented yet" until the Landscape, UnrealEd, and MaterialEditor
- * dependencies are wired into the module.
  */
 class FMCPTool_LandscapeMaterial : public FMCPToolBase
 {
